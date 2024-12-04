@@ -1,34 +1,11 @@
-// UC4.js
+// Refactor the Code to write a function to get work hours
 
-// Constants
+
 const HOURLY_WAGE = 20;
 const PART_TIME_HOURS = 4;
 const FULL_TIME_HOURS = 8;
-const TOTAL_WORKING_DAYS = 20;
 
-// UC1: Check Employee Attendance
-const PRESENT = "Present";
-const ABSENT = "Absent";
-
-function checkEmployeeAttendance(){
-    const PRESENT = "Present";
-    const ABSENT = "Absent";
-
-    let status;
-    if(Math.random() < 0.5){
-        status = ABSENT;
-    }else{
-        status =PRESENT;
-    }
-    return status;
-}
-
-// for(let i=0 ; i<5; i++){
-//     console.log(`Employee is ${checkEmployeeAttendance()}`);
-    
-// }
-
-// UC3: Get Work Hours Based on Work Type
+// function to get work hours based on work type
 function getWorkHours(workType){
     switch(workType){
         case 0:
@@ -42,52 +19,40 @@ function getWorkHours(workType){
     }
 }
 
-// UC2: Calculate Daily Wage
+// function to calculate the daily wage based on work type
 function calculateDailyWage(){
+    let workType =Math.floor(Math.random() * 3);
 
+    let hoursWorked = getWorkHours(workType);
 
-    //generate random work type
-    let workType = Math.floor(Math.random() * 3);
-
-    // var to store work hrs
-    let hoursWorked;
     let workTypeDescription;
-
     switch(workType){
         case 0:
-            hoursWorked =0;
             workTypeDescription = "No Time";
             break;
-
         case 1:
-            hoursWorked = PART_TIME_HOURS;
             workTypeDescription = "Part Time";
             break;
         case 2:
-            hoursWorked = FULL_TIME_HOURS;
             workTypeDescription = "Full Time";
             break;
         default:
-            hoursWorked = 0;
-            workTypeDescription ="Unknown";
-            break;
+            workTypeDescription = "Unknown";
     }
 
-    // cal wage
-    let dailyWage  = hoursWorked * HOURLY_WAGE;
+    //cal daily wage
 
-    return{
+    let dailyWage =hoursWorked * HOURLY_WAGE;
+
+    // return the result as an object
+    return {
         hoursWorked,
         dailyWage,
-        workType : workTypeDescription,
+        workType: workTypeDescription,
     };
 }
 
-// for(let i = 0; i < 5; i++) {
-//     const result = calculateDailyWage();
-//     console.log(`Work Type: ${result.workType}, Hours Worked: ${result.hoursWorked}, Daily Wage: $${result.dailyWage}`);
-    
-// }
+
 
 // UC4: Calculate Wages for a Month
 function calculateMonthlyWage(){
@@ -115,13 +80,49 @@ function calculateMonthlyWage(){
 console.log(`Total Wage for the Month: $${totalWage} Days ${totalDays} Hours ${totalHours}`);
 }
 
+//UC5
 
+function maxWages(){
+    let totalWage =0;
+    let totalHours = 0;
+    let totalDays = 0;
 
+    console.log("Daily Wage Details");
+    console.log("--------------");
 
+    while(totalDays <20 && totalHours <160){
+        let dailyResult = calculateDailyWage();
+        totalWage += dailyResult.dailyWage;
+        totalHours += dailyResult.hoursWorked;
+        if(dailyResult.hoursWorked !=0){
+            totalDays++;
+        }
 
+        // console.log(
+        //     `Day ${day}: Work Type: ${dailyResult.workType}, Hours Worked: ${dailyResult.hoursWorked}, Daily Wage: $${dailyResult.dailyWage}`
+        // );
+        
+    }
+    console.log("--------------");
+console.log(`Total Wage for the Month: $${totalWage} Days ${totalDays} Hours ${totalHours}`);
+}
 
+maxWages();
 
+/*
 
+    while (totalDays <20 && totalHours <160) {
+        let attendance = checkAttendance();
+        if (attendance) {
+        let result = calculateDailyWages();
+        totalDays++;
+        totalHours += result.workedHours;
+        Salary += result.dailyWages;
+        }
+    }
+  console.log("The Employee worked hours:", totalHours, ", montly salary:", Salary,"and total days:",totalDays);
+}
 
-// Run the Monthly Wage Calculation
-// calculateMonthlyWage();
+maxWages();
+
+*/
